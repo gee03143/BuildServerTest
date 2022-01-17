@@ -7,6 +7,9 @@ node
 	withEnv([
 		"UE4DIST_PATH=${params.UE4DIST_PATH?params.UE4DIST_PATH:env.UE4DIST_PATH}"
 	])
+	{
+		"GIT_URL=https://github.com/gee03143/BuildServerTest.git"
+	}
 	stage('Preparation')
 	{
 		dir('git')
