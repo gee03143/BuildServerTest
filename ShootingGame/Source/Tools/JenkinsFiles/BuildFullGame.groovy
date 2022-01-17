@@ -9,13 +9,13 @@ node
 	])
 	{
 		"GIT_URL=https://github.com/gee03143/BuildServerTest.git"
-		gitCommitHash = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
 	}
 	stage('Preparation')
 	{
 		dir('git')
 		{
 			git branch: "master", url: "https://github.com/gee03143/BuildServerTest.git"
+			gitCommitHash = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
 		}
 	}
 	stage('Build')
