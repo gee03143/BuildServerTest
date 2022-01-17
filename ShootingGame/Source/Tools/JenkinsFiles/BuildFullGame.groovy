@@ -9,7 +9,7 @@ node
 	])
 	stage('Preparation')
 	{
-		dir('git)
+		dir('git')
 		{
 			git branch: "master", url: "https://github.com/gee03143/BuildServerTest.git"
 		}
