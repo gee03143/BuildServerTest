@@ -65,18 +65,18 @@ node
 
 							bat buildCommandLine
 
-							def pakDir = "${WORKSPACE}\\svn\\Saved\\StagedBuilds"
+							def pakDir = "${WORKSPACE}\\git\\ShootingGame\\Saved\\StagedBuilds"
 							if (PLATFORM == 'Win64')
 							{
-							pakDir += "\\WindowsNoEditor\\ProjectNow\\Content\\Paks"
+							pakDir += "\\WindowsNoEditor\\ShootingGame\\Content\\Paks"
 							}
 							else if (PLATFORM == 'IOS')
 							{
-								pakDir += "\\IOS\\cookeddata\\projectnow\\content\\paks"
+								pakDir += "\\IOS\\cookeddata\\ShootingGame\\content\\paks"
 							}
 							else if (PLATFORM == 'Android')
 							{
-								pakDir += "\\Android_${COOK_FLAVOR}\\ProjectNow\\Content\\Paks"
+								pakDir += "\\Android_${COOK_FLAVOR}\\ShootingGame\\Content\\Paks"
 							}
 							pakDir = pakDir.replace("\\", "/")
 							def fileNames = sh(returnStdout: true, script: "ls -1 ${pakDir}").split()
