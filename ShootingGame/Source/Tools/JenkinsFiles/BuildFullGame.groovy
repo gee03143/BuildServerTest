@@ -32,6 +32,7 @@ node
 					{
 						withEnv([
 						"COOK_FLAVOR=${env.COOK_FLAVOR?env.COOK_FLAVOR:'ASTC'}",
+						"RELEASE_VERSION=${gameVersion}"
 						])
 						{
 							bat "rmdir /s /q ${WORKSPACE}\\git\\ShootingGame\\Binaries\\${env.PLATFORM} || true"
