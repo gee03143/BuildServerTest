@@ -24,8 +24,8 @@ node
 			{
 				git branch: "main", url: "${GIT_URL}"
 				gitCommitHash = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
-				buildName = readFile(file:"Source/BuildName.txt").replace("\"", "").trim()
-				gameVersion = readFile(file:"Source/GameVersion.txt").replace("\"", "").trim()
+				buildName = readFile(file:"ShootingGame/Source/BuildName.txt").replace("\"", "").trim()
+				gameVersion = readFile(file:"ShootingGame/Source/GameVersion.txt").replace("\"", "").trim()
 			}
 		}
 		if(BUILD_TYPE == 'FullGame' || (BUILD_TYPE == 'MinimalGame' && env.CreateReleaseVersion == 'true'))
@@ -39,8 +39,8 @@ node
 				
 				def buildCommandLine = "call ${UE4DIST_PATH}\\Engine\\Build\\BatchFiles\\RunUAT.bat BuildCookRun -project=\"${WORKSPACE}\\git\\ShootingGame\\ShootingGame.uproject\" -build -noP4 -platform=${PLATFORM} -targetplatform=${PLATFORM} -cookflavor=${COOK_FLAVOR} -cook -stage -package -compressed -pak -utf8output"
 				
-				def defaultGamePath = "${WORKSPACE}\\svn\\Config\\DefaultGame.ini"
-				def defaultEnginePath = "${WORKSPACE}\\svn\\Config\\DefaultEngine.ini"
+				def defaultGamePath = "${WORKSPACE}\\git\\ShootingGame\\Config\\DefaultGame.ini"
+				def defaultEnginePath = "${WORKSPACE}\\git\\ShootingGame\\Config\\DefaultEngine.ini"
 				
 				if(BUILD_TYPE == 'MinimalGame')
 				{
