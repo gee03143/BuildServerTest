@@ -116,7 +116,7 @@ node
 				{
 					withEnv([
 						"COOK_FLAVOR=${env.COOK_FLAVOR?env.COOK_FLAVOR:'ASTC'}",
-						"ARCHIVE_DIRECTORY=${env.ARCHIVE_DIRECTORY?env.ARCHIVE_DIRECTORY:env.WWW_ROOT + "\\Shootergame\\" + buildName}",
+						"ARCHIVE_DIRECTORY=E:\wwwroot\Shootergame\",
 						"ARCHIVE_NAME=TEST_${gameVersion}"
 					])
 					{
