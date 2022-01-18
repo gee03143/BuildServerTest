@@ -89,7 +89,7 @@ node
 							}
 
 							def cloudDir = "${env.WWW_ROOT}\\PatchDist\\Shootergame\\${env.PLATFORM}"
-							bat "$BUILDPATCHTOOL_PATH -mode=PatchGeneration -BuildRoot=\"$pakDir\" -CloudDir=$cloudDir -AppLaunch=\"\" -AppArgs=\"\""
+							bat "$BUILDPATCHTOOL_PATH -mode=PatchGeneration -BuildRoot=\"$pakDir\" -CloudDir=$cloudDir -AppName=${buildName} -BuildVersion=${DATA_VERSION} -AppLaunch=\"\" -AppArgs=\"\""
 
 							def manifest = "${buildName}${DATA_VERSION}.manifest"
 							echo "${manifest}"
