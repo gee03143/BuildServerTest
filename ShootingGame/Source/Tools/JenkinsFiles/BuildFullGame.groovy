@@ -57,6 +57,7 @@ node
 					{
 						withEnv([
 							"COOK_FLAVOR=${env.COOK_FLAVOR?env.COOK_FLAVOR:'ASTC'}",
+							"DATA_VERSION=${env.DATA_VERSION}",
 							"RELEASE_VERSION=${gameVersion}"
 						])
 						{
