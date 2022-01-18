@@ -97,7 +97,7 @@ node
 
 							dir (cloudDir)
 								{
-									sh "cp ${manifest} test.manifest"
+									sh "cp ${manifest} Shootergame.manifest"
 
 									if (env.PUBLIC_WEBDIST_ROOT?.trim())
 									{
