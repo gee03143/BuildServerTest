@@ -10,12 +10,14 @@ node
 			"UE4DIST_PATH=${params.UE4DIST_PATH?params.UE4DIST_PATH:env.UE4DIST_PATH}"
 		])
 		{
-			"GIT_URL=https://github.com/gee03143/BuildServerTest.git",
-			"GIT_BRANCH=${env.GIT_BRANCH?env.GIT_BRANCH:'master'}",
-			"PLATFORM=${env.PLATFORM?env.PLATFORM:'Win64'}",	
-			"BUILD_TYPE=${env.BUILD_TYPE?env.BUILD_TYPE:'FullGame'}",	// 'FullGame' or 'MinimalGame'
-			"BUILDPATCHTOOL_PATH=${UE4DIST_PATH}\\Engine\\Binaries\\Win64\\BuildPatchTool.exe"
-		}
+			withEnv([
+				"GIT_URL=https://github.com/gee03143/BuildServerTest.git",
+				"GIT_BRANCH=${env.GIT_BRANCH?env.GIT_BRANCH:'master'}",
+				"PLATFORM=${env.PLATFORM?env.PLATFORM:'Win64'}",	
+				"BUILD_TYPE=${env.BUILD_TYPE?env.BUILD_TYPE:'FullGame'}",	// 'FullGame' or 'MinimalGame'
+				"BUILDPATCHTOOL_PATH=${UE4DIST_PATH}\\Engine\\Binaries\\Win64\\BuildPatchTool.exe"
+			])
+			{
 		stage('Preparation')
 		{
 			dir('git')
@@ -152,6 +154,8 @@ node
 				}
 			}
 		}
+		}	//inner withenv
+		}	//outer withenv
 	}//	lock
 }
 
