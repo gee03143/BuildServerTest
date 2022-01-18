@@ -116,7 +116,7 @@ node
 				{
 					withEnv([
 						"COOK_FLAVOR=${env.COOK_FLAVOR?env.COOK_FLAVOR:'ASTC'}",
-						"ARCHIVE_DIRECTORY=E:/wwwroot/Shootergame/Win64",
+						"ARCHIVE_DIRECTORY=E:/wwwroot/PatchDist/Shootergame/Win64",
 						"ARCHIVE_NAME=Win64"
 					])
 					{
