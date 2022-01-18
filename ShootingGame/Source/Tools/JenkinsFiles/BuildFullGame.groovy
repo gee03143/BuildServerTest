@@ -116,8 +116,8 @@ node
 				{
 					withEnv([
 						"COOK_FLAVOR=${env.COOK_FLAVOR?env.COOK_FLAVOR:'ASTC'}",
-						"ARCHIVE_DIRECTORY=E:/wwwroot/Shootergame",
-						"ARCHIVE_NAME=TEST_${gameVersion}"
+						"ARCHIVE_DIRECTORY=E:/wwwroot/Shootergame/Win64",
+						"ARCHIVE_NAME=Win64"
 					])
 					{
 						def buildRoot = "${ARCHIVE_DIRECTORY}\\${ARCHIVE_NAME}"
@@ -139,7 +139,7 @@ node
 
 						stage('Make Chunk')
 						{
-							bat "$BUILDPATCHTOOL_PATH -mode=PatchGeneration -BuildRoot=\"$buildRoot\" -CloudDir=$cloudDir -AppName=${buildName} -BuildVersion=-${env.BUILD_NUMBER} -AppLaunch=\"\" -AppArgs=\"\""
+							bat "$BUILDPATCHTOOL_PATH -mode=PatchGeneration -BuildRoot=${ARCHIVE_DIRECTORY} -CloudDir=$cloudDir -AppName=${buildName} -BuildVersion=-${env.BUILD_NUMBER} -AppLaunch=\"\" -AppArgs=\"\""
 
 							echo "${manifest}"
 						}
