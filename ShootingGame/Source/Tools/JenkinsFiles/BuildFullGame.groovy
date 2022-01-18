@@ -56,7 +56,8 @@ node
 					stage('Generate Patch')
 					{
 						withEnv([
-							"COOK_FLAVOR=${env.COOK_FLAVOR?env.COOK_FLAVOR:'ASTC'}"
+							"COOK_FLAVOR=${env.COOK_FLAVOR?env.COOK_FLAVOR:'ASTC'}",
+							"RELEASE_VERSION=${gameVersion}"
 						])
 						{
 							def buildCommandLine = "call ${UE4DIST_PATH}\\Engine\\Build\\BatchFiles\\RunUAT.bat BuildCookRun -project=\"${WORKSPACE}\\git\\ShootingGame\\ShootingGame.uproject\" -build -noP4  -platform=${PLATFORM} -targetplatform=${PLATFORM} -cookflavor=${COOK_FLAVOR} -cook -stage -compressed -pak -utf8output"
