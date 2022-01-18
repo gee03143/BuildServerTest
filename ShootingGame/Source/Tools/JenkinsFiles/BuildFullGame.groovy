@@ -4,8 +4,6 @@ import groovy.json.JsonSlurperClassic
 
 node 
 {
-	lock('WorkSpace' + env.WORKSPACE)
-	{
 		withEnv([
 			"UE4DIST_PATH=${params.UE4DIST_PATH?params.UE4DIST_PATH:env.UE4DIST_PATH}"
 		])
@@ -156,6 +154,5 @@ node
 		}
 		}	//inner withenv
 		}	//outer withenv
-	}//	lock
 }
 
