@@ -39,12 +39,9 @@ node
 						"RELEASE_VERSION=${gameVersion}"
 						])
 						{
+							bat "rmdir /s /q ${WORKSPACE}\\git\\ShootingGame\\Binaries\\${env.PLATFORM} || true"
 							bat "rmdir /s /q ${ARCHIVE_DIR}\\${ARCHIVE_NAME} || true"
 							bat "mkdir ${ARCHIVE_DIR}\\${ARCHIVE_NAME} || true"
-							
-							def archiveName = todayStr
-							
-							bat "rmdir /s /q ${WORKSPACE}\\git\\ShootingGame\\Binaries\\${env.PLATFORM} || true"
 
 							def buildCommandLine = "call ${UE4DIST_PATH}\\Engine\\Build\\BatchFiles\\RunUAT.bat BuildCookRun -project=\"${WORKSPACE}\\git\\ShootingGame\\ShootingGame.uproject\" -build -noP4 -platform=${PLATFORM} -targetplatform=${PLATFORM} -cookflavor=${COOK_FLAVOR} -archivedirectory=${ARCHIVE_DIR}\\${ARCHIVE_NAME} -cook -stage -package -compressed -pak -utf8output"
 
