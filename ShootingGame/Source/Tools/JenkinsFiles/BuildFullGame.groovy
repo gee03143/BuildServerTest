@@ -16,7 +16,7 @@ node
 				"BUILDPATCHTOOL_PATH=${UE4DIST_PATH}\\Engine\\Binaries\\Win64\\BuildPatchTool.exe",
 				"WWW_ROOT=E:/wwwroot",						// wwwroot of buildmachine, built files are posted
 				"DIST_DIR=E:/wwwroot/ShootergameDist",				// build results are posted in this directory
-				"ARCHIVE_DIR=E:/wwwroot/Shootergame/Archive",
+				"ARCHIVE_DIR=E:/wwwroot/Shootergame",
 				"ARCHIVE_NAME=9.9"
 			])
 			{
@@ -39,9 +39,7 @@ node
 						"RELEASE_VERSION=${gameVersion}"
 						])
 						{
-							def dateFormat = new SimpleDateFormat("yyyy-MM-dd")
-							def date = new Date()
-							todayStr = dateFormat.format(date)
+							bat "mkdir ${ARCHIVE_DIR}\\${ARCHIVE_NAME} || true"
 							
 							def archiveName = todayStr
 							
@@ -70,7 +68,7 @@ node
 							"DATA_VERSION=${env.DATA_VERSION}"
 						])
 						{
-							def buildCommandLine = "call ${UE4DIST_PATH}\\Engine\\Build\\BatchFiles\\RunUAT.bat BuildCookRun -project=\"${WORKSPACE}\\git\\ShootingGame\\ShootingGame.uproject\" -build -noP4  -platform=${PLATFORM} -targetplatform=${PLATFORM} -cookflavor=${COOK_FLAVOR} -archivedirectory=${ARCHIVE_DIR}\\${ARCHIVE_NAME} -cook -stage -compressed -pak -utf8output"
+							def buildCommandLine = "call ${UE4DIST_PATH}\\Engine\\Build\\BatchFiles\\RunUAT.bat BuildCookRun -project=\"${WORKSPACE}\\git\\ShootingGame\\ShootingGame.uproject\" -build -noP4  -platform=${PLATFORM} -targetplatform=${PLATFORM} -cookflavor=${COOK_FLAVOR} -cook -stage -compressed -pak -utf8output"
 							buildCommandLine += " -manifests -generatepatch -BasedOnReleaseVersion=${gameVersion}"
 
 							bat buildCommandLine
