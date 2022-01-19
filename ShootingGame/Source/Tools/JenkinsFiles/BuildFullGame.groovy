@@ -39,7 +39,7 @@ node
 						"RELEASE_VERSION=${gameVersion}"
 						])
 						{
-							bat "rmdir /s /q ${ARCHIVE_DIRECTORY}\\${ARCHIVE_NAME} || true"
+							bat "rmdir /s /q ${ARCHIVE_DIR}\\${ARCHIVE_NAME} || true"
 							bat "mkdir ${ARCHIVE_DIR}\\${ARCHIVE_NAME} || true"
 							
 							def archiveName = todayStr
