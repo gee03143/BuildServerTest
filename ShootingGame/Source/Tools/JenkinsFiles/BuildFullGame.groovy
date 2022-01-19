@@ -17,7 +17,7 @@ node
 				"WWW_ROOT=E:/wwwroot",						// wwwroot of buildmachine, built files are posted
 				"DIST_DIR=E:/wwwroot/ShootergameDist",				// build results are posted in this directory
 				"ARCHIVE_DIR=E:/wwwroot/Shootergame/Archive",
-				"ARCHIVE_NAME=${gameVersion}"
+				"ARCHIVE_NAME=9.9"
 			])
 			{
 				stage('Preparation')
