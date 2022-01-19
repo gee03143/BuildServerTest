@@ -9,11 +9,15 @@ node
 		])
 		{
 			withEnv([
-				"GIT_URL=https://github.com/gee03143/BuildServerTest.git",
-				"GIT_BRANCH=${env.GIT_BRANCH?env.GIT_BRANCH:'master'}",
-				"PLATFORM=${env.PLATFORM?env.PLATFORM:'Win64'}",	
+				"GIT_URL=https://github.com/gee03143/BuildServerTest.git",	// github repository to get project from
+				"GIT_BRANCH=${env.GIT_BRANCH?env.GIT_BRANCH:'master'}",		// target branch 
+				"PLATFORM=${env.PLATFORM?env.PLATFORM:'Win64'}",		// build type for full build or generate patch
 				"BUILD_TYPE=${env.BUILD_TYPE?env.BUILD_TYPE:'FullGame'}",	// 'FullGame' or 'MinimalGame'
-				"BUILDPATCHTOOL_PATH=${UE4DIST_PATH}\\Engine\\Binaries\\Win64\\BuildPatchTool.exe"
+				"BUILDPATCHTOOL_PATH=${UE4DIST_PATH}\\Engine\\Binaries\\Win64\\BuildPatchTool.exe",
+				"WWW_ROOT=E:/wwwroot",						// wwwroot of buildmachine, built files are posted
+				"DIST_DIR=E:/wwwroot/ShootergameDist"				// build results are posted in this directory
+				"ARCHIVE_DIR=E:/wwwroot/Shootergame/Archive",
+				"ARCHIVE_NAME=${gameVersion}"
 			])
 			{
 				stage('Preparation')
@@ -35,9 +39,15 @@ node
 						"RELEASE_VERSION=${gameVersion}"
 						])
 						{
+							def dateFormat = new SimpleDateFormat("yyyy-MM-dd")
+							def date = new Date()
+							todayStr = dateFormat.format(date)
+							
+							def archiveName = todayStr
+							
 							bat "rmdir /s /q ${WORKSPACE}\\git\\ShootingGame\\Binaries\\${env.PLATFORM} || true"
 
-							def buildCommandLine = "call ${UE4DIST_PATH}\\Engine\\Build\\BatchFiles\\RunUAT.bat BuildCookRun -project=\"${WORKSPACE}\\git\\ShootingGame\\ShootingGame.uproject\" -build -noP4 -platform=${PLATFORM} -targetplatform=${PLATFORM} -cookflavor=${COOK_FLAVOR} -cook -stage -package -compressed -pak -utf8output"
+							def buildCommandLine = "call ${UE4DIST_PATH}\\Engine\\Build\\BatchFiles\\RunUAT.bat BuildCookRun -project=\"${WORKSPACE}\\git\\ShootingGame\\ShootingGame.uproject\" -build -noP4 -platform=${PLATFORM} -targetplatform=${PLATFORM} -cookflavor=${COOK_FLAVOR} -archivedirectory=${ARCHIVE_DIR}\\${ARCHIVE_NAME}\ -cook -stage -package -compressed -pak -utf8output"
 
 							def defaultGamePath = "${WORKSPACE}\\git\\ShootingGame\\Config\\DefaultGame.ini"
 							def defaultEnginePath = "${WORKSPACE}\\git\\ShootingGame\\Config\\DefaultEngine.ini"
@@ -57,12 +67,11 @@ node
 					{
 						withEnv([
 							"COOK_FLAVOR=${env.COOK_FLAVOR?env.COOK_FLAVOR:'ASTC'}",
-							"DATA_VERSION=${env.DATA_VERSION}",
-							"RELEASE_VERSION=${gameVersion}"
+							"DATA_VERSION=${env.DATA_VERSION}"
 						])
 						{
-							def buildCommandLine = "call ${UE4DIST_PATH}\\Engine\\Build\\BatchFiles\\RunUAT.bat BuildCookRun -project=\"${WORKSPACE}\\git\\ShootingGame\\ShootingGame.uproject\" -build -noP4  -platform=${PLATFORM} -targetplatform=${PLATFORM} -cookflavor=${COOK_FLAVOR} -cook -stage -compressed -pak -utf8output"
-							buildCommandLine += " -manifests -generatepatch -BasedOnReleaseVersion=${RELEASE_VERSION}"
+							def buildCommandLine = "call ${UE4DIST_PATH}\\Engine\\Build\\BatchFiles\\RunUAT.bat BuildCookRun -project=\"${WORKSPACE}\\git\\ShootingGame\\ShootingGame.uproject\" -build -noP4  -platform=${PLATFORM} -targetplatform=${PLATFORM} -cookflavor=${COOK_FLAVOR} -archivedirectory=${ARCHIVE_DIR}\\${ARCHIVE_NAME}\ -cook -stage -compressed -pak -utf8output"
+							buildCommandLine += " -manifests -generatepatch -BasedOnReleaseVersion=${gameVersion}"
 
 							bat buildCommandLine
 
@@ -89,7 +98,7 @@ node
 								}
 							}
 
-							def cloudDir = "${env.WWW_ROOT}\\PatchDist\\Shootergame\\${env.PLATFORM}"
+							def cloudDir = "${DIST_DIR}"
 							bat "$BUILDPATCHTOOL_PATH -mode=PatchGeneration -BuildRoot=\"$pakDir\" -CloudDir=$cloudDir -AppName=${buildName} -BuildVersion=${DATA_VERSION} -AppLaunch=\"\" -AppArgs=\"\""
 
 							def manifest = "${buildName}${DATA_VERSION}.manifest"
@@ -116,7 +125,7 @@ node
 				{
 					withEnv([
 						"COOK_FLAVOR=${env.COOK_FLAVOR?env.COOK_FLAVOR:'ASTC'}",
-						"ARCHIVE_DIRECTORY=E:/wwwroot/PatchDist/Shootergame/Win64",
+						"ARCHIVE_DIRECTORY=${ARCHIVE_DIR}\\${ARCHIVE_NAME}\",
 						"ARCHIVE_NAME=Win64"
 					])
 					{
@@ -134,7 +143,7 @@ node
 							buildRoot += "\\IOS"
 						}
 
-						def cloudDir = "${env.WWW_ROOT}\\${BUILD_TYPE}Dist\\${buildName}\\${env.PLATFORM}"
+						def cloudDir = "${DIST_DIR}"
 						def manifest = "${buildName}-${env.BUILD_NUMBER}.manifest"
 
 						stage('Make Chunk')
