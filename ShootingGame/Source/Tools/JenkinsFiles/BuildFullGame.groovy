@@ -125,7 +125,7 @@ node
 				{
 					withEnv([
 						"COOK_FLAVOR=${env.COOK_FLAVOR?env.COOK_FLAVOR:'ASTC'}",
-						"ARCHIVE_DIRECTORY=${ARCHIVE_DIR}\\${ARCHIVE_NAME}\",
+						"ARCHIVE_DIRECTORY=${ARCHIVE_DIR}\\${ARCHIVE_NAME}",
 						"ARCHIVE_NAME=Win64"
 					])
 					{
