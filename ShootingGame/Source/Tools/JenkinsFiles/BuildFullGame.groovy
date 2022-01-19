@@ -47,7 +47,7 @@ node
 							
 							bat "rmdir /s /q ${WORKSPACE}\\git\\ShootingGame\\Binaries\\${env.PLATFORM} || true"
 
-							def buildCommandLine = "call ${UE4DIST_PATH}\\Engine\\Build\\BatchFiles\\RunUAT.bat BuildCookRun -project=\"${WORKSPACE}\\git\\ShootingGame\\ShootingGame.uproject\" -build -noP4 -platform=${PLATFORM} -targetplatform=${PLATFORM} -cookflavor=${COOK_FLAVOR} -archivedirectory=${ARCHIVE_DIR}\\${ARCHIVE_NAME}\ -cook -stage -package -compressed -pak -utf8output"
+							def buildCommandLine = "call ${UE4DIST_PATH}\\Engine\\Build\\BatchFiles\\RunUAT.bat BuildCookRun -project=\"${WORKSPACE}\\git\\ShootingGame\\ShootingGame.uproject\" -build -noP4 -platform=${PLATFORM} -targetplatform=${PLATFORM} -cookflavor=${COOK_FLAVOR} -archivedirectory=${ARCHIVE_DIR}\\${ARCHIVE_NAME} -cook -stage -package -compressed -pak -utf8output"
 
 							def defaultGamePath = "${WORKSPACE}\\git\\ShootingGame\\Config\\DefaultGame.ini"
 							def defaultEnginePath = "${WORKSPACE}\\git\\ShootingGame\\Config\\DefaultEngine.ini"
@@ -70,7 +70,7 @@ node
 							"DATA_VERSION=${env.DATA_VERSION}"
 						])
 						{
-							def buildCommandLine = "call ${UE4DIST_PATH}\\Engine\\Build\\BatchFiles\\RunUAT.bat BuildCookRun -project=\"${WORKSPACE}\\git\\ShootingGame\\ShootingGame.uproject\" -build -noP4  -platform=${PLATFORM} -targetplatform=${PLATFORM} -cookflavor=${COOK_FLAVOR} -archivedirectory=${ARCHIVE_DIR}\\${ARCHIVE_NAME}\ -cook -stage -compressed -pak -utf8output"
+							def buildCommandLine = "call ${UE4DIST_PATH}\\Engine\\Build\\BatchFiles\\RunUAT.bat BuildCookRun -project=\"${WORKSPACE}\\git\\ShootingGame\\ShootingGame.uproject\" -build -noP4  -platform=${PLATFORM} -targetplatform=${PLATFORM} -cookflavor=${COOK_FLAVOR} -archivedirectory=${ARCHIVE_DIR}\\${ARCHIVE_NAME} -cook -stage -compressed -pak -utf8output"
 							buildCommandLine += " -manifests -generatepatch -BasedOnReleaseVersion=${gameVersion}"
 
 							bat buildCommandLine
