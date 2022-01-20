@@ -110,7 +110,7 @@ node
 										dir = dir.replace("\\", "/");
 										dir = dir.replace(":", "");
 										dir = "/cygdrive/" + dir
-										bat "${RSYNC_PATH}  -v -rlt -z --chmod=a=rw,Da+x --delete --relative \"/cygdrive/E/wwwroot/PatchDist/./${buildName}\" \"${env.PUBLIC_WEBDIST_ROOT}/\""
+										bat "${RSYNC_PATH}  -v -rlt -z --chmod=a=rw,Da+x --delete --relative \"/cygdrive/E/wwwroot/./${buildName}\" \"${env.PUBLIC_WEBDIST_ROOT}/\""
 									}
 								}
 						}
