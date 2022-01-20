@@ -156,8 +156,8 @@ node
 
 								if (env.PUBLIC_WEBDIST_ROOT?.trim())
 								{
-									bat "${RSYNC_PATH}  -v -rlt -z --chmod=a=rw,Da+x --delete --relative \"/cygdrive/E/wwwroot/./${buildName}Dist/ChunksV3\" \"${env.PUBLIC_WEBDIST_ROOT}/\""
-									bat "${RSYNC_PATH}  -v -rlt -z --chmod=a=rw,Da+x --delete --relative --exclude='ChunksV3/' \"/cygdrive/E/wwwroot/./${buildName}Dist\" \"${env.PUBLIC_WEBDIST_ROOT}/\""
+									bat "${RSYNC_PATH}  -v -rlt -z --chmod=a=rw,Da+x --delete --relative \"/cygdrive/E/wwwroot/./${buildName}Dist/ChunksV3\" \"${env.PUBLIC_WEBDIST_ROOT}/PatchDist/\""
+									bat "${RSYNC_PATH}  -v -rlt -z --chmod=a=rw,Da+x --delete --relative --exclude='ChunksV3/' \"/cygdrive/E/wwwroot/./${buildName}Dist\" \"${env.PUBLIC_WEBDIST_ROOT}/PatchDist/\""
 								}
 							}
 						}
