@@ -79,8 +79,17 @@ node
 						{
 							def buildCommandLine = "call ${UE4DIST_PATH}\\Engine\\Build\\BatchFiles\\RunUAT.bat BuildCookRun -project=\"${WORKSPACE}\\git\\ShootingGame\\ShootingGame.uproject\" -build -noP4  -platform=${PLATFORM} -targetplatform=${PLATFORM} -cookflavor=${COOK_FLAVOR} -cook -stage -compressed -pak -utf8output"
 							buildCommandLine += " -manifests -generatepatch -BasedOnReleaseVersion=${gameVersion}"
+							
+							readContent = readFile file: defaultEnginePath, encoding: "UTF-8"
+							readContent += "\r\nbDoPatch=true"
+							writeFile file: defaultEnginePath, text: readContent, encoding: "UTF-8"
 
 							bat buildCommandLine
+							
+							//revert all changes of defaultEngine.ini
+							readContent = readFile file: defaultEnginePath, encoding: "UTF-8"
+							readContent -= "\r\nbDoPatch=true"
+							writeFile file: defaultEnginePath, text: readContent, encoding: "UTF-8"
 
 							def pakDir = "${WORKSPACE}\\git\\ShootingGame\\Saved\\StagedBuilds"
 							if (PLATFORM == 'Win64')
