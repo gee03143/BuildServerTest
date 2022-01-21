@@ -123,7 +123,7 @@ node
 
 							dir (cloudDir)
 								{
-									sh "cp ${manifest} Shootergame.manifest"
+									sh "cp ${manifest} latest.manifest"
 
 									if (env.PUBLIC_WEBDIST_ROOT?.trim())
 									{
