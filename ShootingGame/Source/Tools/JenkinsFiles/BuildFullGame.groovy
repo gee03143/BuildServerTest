@@ -50,10 +50,21 @@ node
 
 							if(BUILD_TYPE == 'MinimalGame')
 							{
+								def readContent = readFile file: defaultGamePath, encoding: "UTF-8"
+								readContent += "\r\nbDoPatch=true"
+								writeFile file: defaultEnginePath, text: readContent, encoding: "UTF-8"
+								
 								buildCommandLine+= " -manifests"
 							}
 
 							bat buildCommandLine
+							
+							if(BUILD_TYPE == 'MinimalGame')
+							{
+								def readContent = readFile file: defaultGamePath, encoding: "UTF-8"
+								readContent -= "\r\nbDoPatch=true"
+								writeFile file: defaultEnginePath, text: readContent, encoding: "UTF-8"
+							}
 						}
 					}
 				}		
