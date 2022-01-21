@@ -15,8 +15,8 @@ node
 				"BUILD_TYPE=${env.BUILD_TYPE?env.BUILD_TYPE:'FullGame'}",	// 'FullGame' or 'MinimalGame'
 				"BUILDPATCHTOOL_PATH=${UE4DIST_PATH}\\Engine\\Binaries\\Win64\\BuildPatchTool.exe",
 				"WWW_ROOT=E:/wwwroot",						// wwwroot of buildmachine, built files are posted
-				"DIST_DIR=E:/wwwroot/PatchDist/ShootergameDist",				// build results are posted in this directory
-				"ARCHIVE_DIR=E:/wwwroot/PatchDist/Shootergame",
+				"DIST_DIR=E:/wwwroot/ShootergameDist",				// build results are posted in this directory
+				"ARCHIVE_DIR=E:/wwwroot/Shootergame",
 				"ARCHIVE_NAME=9.9"
 			])
 			{
@@ -140,7 +140,7 @@ node
 						}
 
 						def cloudDir = "${DIST_DIR}"
-						def manifest = "${buildName}-${env.BUILD_NUMBER}.manifest"
+						def manifest = "${buildName}.manifest"
 
 						stage('Make Chunk')
 						{
