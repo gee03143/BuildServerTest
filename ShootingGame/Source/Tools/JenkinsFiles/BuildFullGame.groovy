@@ -50,10 +50,21 @@ node
 
 							if(BUILD_TYPE == 'MinimalGame')
 							{
+								def readContent = readFile file: defaultGamePath, encoding: "UTF-8"
+								readContent += "\r\nbDoPatch=true"
+								writeFile file: defaultEnginePath, text: readContent, encoding: "UTF-8"
+								
 								buildCommandLine+= " -manifests"
 							}
 
 							bat buildCommandLine
+							
+							if(BUILD_TYPE == 'MinimalGame')
+							{
+								def readContent = readFile file: defaultGamePath, encoding: "UTF-8"
+								readContent -= "\r\nbDoPatch=true"
+								writeFile file: defaultEnginePath, text: readContent, encoding: "UTF-8"
+							}
 						}
 					}
 				}		
@@ -66,10 +77,20 @@ node
 							"DATA_VERSION=${env.DATA_VERSION}"
 						])
 						{
+							def defaultEnginePath = "${WORKSPACE}\\git\\ShootingGame\\Config\\DefaultEngine.ini"
 							def buildCommandLine = "call ${UE4DIST_PATH}\\Engine\\Build\\BatchFiles\\RunUAT.bat BuildCookRun -project=\"${WORKSPACE}\\git\\ShootingGame\\ShootingGame.uproject\" -build -noP4  -platform=${PLATFORM} -targetplatform=${PLATFORM} -cookflavor=${COOK_FLAVOR} -cook -stage -compressed -pak -utf8output"
 							buildCommandLine += " -manifests -generatepatch -BasedOnReleaseVersion=${gameVersion}"
+							
+							readContent = readFile file: defaultEnginePath, encoding: "UTF-8"
+							readContent += "\r\nbDoPatch=true"
+							writeFile file: defaultEnginePath, text: readContent, encoding: "UTF-8"
 
 							bat buildCommandLine
+							
+							//revert all changes of defaultEngine.ini
+							readContent = readFile file: defaultEnginePath, encoding: "UTF-8"
+							readContent -= "\r\nbDoPatch=true"
+							writeFile file: defaultEnginePath, text: readContent, encoding: "UTF-8"
 
 							def pakDir = "${WORKSPACE}\\git\\ShootingGame\\Saved\\StagedBuilds"
 							if (PLATFORM == 'Win64')
@@ -97,12 +118,12 @@ node
 							def cloudDir = "${DIST_DIR}"
 							bat "$BUILDPATCHTOOL_PATH -mode=PatchGeneration -BuildRoot=\"$pakDir\" -CloudDir=$cloudDir -AppName=${buildName} -BuildVersion=${DATA_VERSION} -AppLaunch=\"\" -AppArgs=\"\""
 
-							def manifest = "${buildName}${DATA_VERSION}.manifest"
+							def manifest = "${buildName}.manifest"
 							echo "${manifest}"
 
 							dir (cloudDir)
 								{
-									sh "cp ${manifest} Shootergame.manifest"
+									sh "cp ${manifest} latest.manifest"
 
 									if (env.PUBLIC_WEBDIST_ROOT?.trim())
 									{
