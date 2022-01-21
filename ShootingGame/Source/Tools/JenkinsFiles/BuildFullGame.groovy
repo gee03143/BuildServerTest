@@ -118,7 +118,7 @@ node
 							def cloudDir = "${DIST_DIR}"
 							bat "$BUILDPATCHTOOL_PATH -mode=PatchGeneration -BuildRoot=\"$pakDir\" -CloudDir=$cloudDir -AppName=${buildName} -BuildVersion=${DATA_VERSION} -AppLaunch=\"\" -AppArgs=\"\""
 
-							def manifest = "${buildName}${DATA_VERSION}.manifest"
+							def manifest = "${buildName}.manifest"
 							echo "${manifest}"
 
 							dir (cloudDir)
