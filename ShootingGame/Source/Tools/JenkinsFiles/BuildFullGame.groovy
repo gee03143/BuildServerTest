@@ -77,6 +77,7 @@ node
 							"DATA_VERSION=${env.DATA_VERSION}"
 						])
 						{
+							def defaultEnginePath = "${WORKSPACE}\\git\\ShootingGame\\Config\\DefaultEngine.ini"
 							def buildCommandLine = "call ${UE4DIST_PATH}\\Engine\\Build\\BatchFiles\\RunUAT.bat BuildCookRun -project=\"${WORKSPACE}\\git\\ShootingGame\\ShootingGame.uproject\" -build -noP4  -platform=${PLATFORM} -targetplatform=${PLATFORM} -cookflavor=${COOK_FLAVOR} -cook -stage -compressed -pak -utf8output"
 							buildCommandLine += " -manifests -generatepatch -BasedOnReleaseVersion=${gameVersion}"
 							
