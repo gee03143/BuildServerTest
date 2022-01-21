@@ -274,8 +274,8 @@ void UPatchManager::Init()
 	TempChunkDir = FullInstallDir / TEXT("TempChunks");
 	BuildPatchServices = &FModuleManager::LoadModuleChecked<IBuildPatchServicesModule>(TEXT("BuildPatchServices"));
 
-	RemoteManifestURL = FString(TEXT("http://133.186.131.38:18080/Shootergame/Win64/Shootergame.manifest"));
-	CloudURL = FString(TEXT("http://133.186.131.38:18080/Shootergame/Win64/"));
+	RemoteManifestURL = FString(TEXT("http://133.186.131.38:18080/ShootergameDist/Shootergame.manifest"));
+	CloudURL = FString(TEXT("http://133.186.131.38:18080/ShootergameDist/"));
 
 	UE_LOG(LogTemp, Warning, TEXT("RemoteManifestURL : %s"), *RemoteManifestURL);
 	UE_LOG(LogTemp, Warning, TEXT("CloudURL : %s"), *CloudURL);
