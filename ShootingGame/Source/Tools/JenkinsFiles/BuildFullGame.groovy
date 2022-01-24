@@ -53,10 +53,10 @@ node
 								def readContent = readFile file: defaultGamePath, encoding: "UTF-8"
 								readContent += "\r\nbDoPatch=true"
 								
-								buildCommandLine+= "\r\n-manifests"
-								buildCommandLine += "\r\n-clientconfig=Development"
-								
 								writeFile file: defaultEnginePath, text: readContent, encoding: "UTF-8"
+
+								buildCommandLine+= " -manifests"
+								buildCommandLine += " -clientconfig=Development"
 							}
 
 							bat buildCommandLine
@@ -65,9 +65,6 @@ node
 							{
 								def readContent = readFile file: defaultGamePath, encoding: "UTF-8"
 								readContent -= "\r\nbDoPatch=true"
-								
-								buildCommandLine -= "\r\n-manifests"
-								buildCommandLine -= "\r\n-clientconfig=Development"
 								
 								writeFile file: defaultEnginePath, text: readContent, encoding: "UTF-8"
 							}
